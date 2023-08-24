@@ -1,4 +1,6 @@
-const NUMBER_OF_USERS = 100;
+const MIN_NUMBER_OF_USERS = 5;
+const MAX_NUMBER_OF_USERS = 100;
+const GROWT_IN_NUMBER_OF_USERS = 5;
 const NUMBER_OF_RAUNDS = 50;
 
 
@@ -14,10 +16,10 @@ function generateFiveNumbers() {
     return number;
 }
 
-function oneRound(totalUsersNumber, five, four, three, two, one) {
+function oneRound(usersNumberOnRound, totalUsersNumber, five, four, three, two, one) {
     const winNumber = generateFiveNumbers();
     let userNumbers = [];
-    for (let i = 0; i < NUMBER_OF_USERS; i++) {
+    for (let i = 0; i < usersNumberOnRound; i++) {
         userNumbers[i] = generateFiveNumbers();
     }
 
@@ -27,7 +29,7 @@ function oneRound(totalUsersNumber, five, four, three, two, one) {
         twoWinningNumbers = 0,
         oneWinningNumber = 0;
 
-    for (let i = 0; i < NUMBER_OF_USERS; i++) {
+    for (let i = 0; i < usersNumberOnRound; i++) {
         totalUsersNumber++;
         if (userNumbers[i] === winNumber) {
             fiveWinningNumbers++;
@@ -86,6 +88,7 @@ function oneRound(totalUsersNumber, five, four, three, two, one) {
 }
 
 function cycleOfRounds() {
+    let usersNumberOnRound = MIN_NUMBER_OF_USERS;
     let fiveWinningNumbers = [],
         fourWinningNumbers = [],
         threeWinningNumbers = [],
@@ -100,7 +103,8 @@ function cycleOfRounds() {
         firstUserOnCycleWith_One_WinningNumber;
     
     for (let i = 0; i < NUMBER_OF_RAUNDS; i++) {
-        let round = oneRound(totalUsersNumber,
+        let round = oneRound(usersNumberOnRound, 
+                             totalUsersNumber,
                              firstUserOnCycleWith_Five_WinningNumbers,
                              firstUserOnCycleWith_Four_WinningNumbers,
                              firstUserOnCycleWith_Three_WinningNumbers,
@@ -120,6 +124,11 @@ function cycleOfRounds() {
         firstUserOnCycleWith_Three_WinningNumbers = round.firstUserOnCycleWith_Three_WinningNumbers;
         firstUserOnCycleWith_Two_WinningNumbers = round.firstUserOnCycleWith_Two_WinningNumbers;
         firstUserOnCycleWith_One_WinningNumber = round.firstUserOnCycleWith_One_WinningNumber;
+
+        if (usersNumberOnRound <= MAX_NUMBER_OF_USERS)
+        {
+            usersNumberOnRound += GROWT_IN_NUMBER_OF_USERS;
+        }
     }
 
     console.log('total users number -', totalUsersNumber);
