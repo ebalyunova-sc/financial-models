@@ -161,47 +161,62 @@ function cycleOfRounds() {
         }
     }
 
+    console.log('number of round -  d1  d2  d3  d4  d5');
+    for (let i = 0; i < NUMBER_OF_RAUNDS; i++) {
+        console.log('          ',
+                    i < 10
+                        ? '  '
+                        : ' ',
+                    i + ' - ',
+                    oneWinningNumber[i] < 10
+                        ? ' ' + oneWinningNumber[i] 
+                        : oneWinningNumber[i],
+                    twoWinningNumbers[i] < 10
+                        ? '  ' + twoWinningNumbers[i]
+                        : ' ' + twoWinningNumbers[i],
+                    threeWinningNumbers[i] < 10
+                        ? '  ' + threeWinningNumbers[i]
+                        : ' ' + threeWinningNumbers[i],
+                    fourWinningNumbers[i] < 10
+                        ? '  ' + fourWinningNumbers[i]
+                        : ' ' + fourWinningNumbers[i],
+                    fiveWinningNumbers[i] < 10
+                        ? '  ' + fiveWinningNumbers[i]
+                        : ' ' + fiveWinningNumbers[i]);
+    }
+
     console.log('total users number -', totalUsersNumber);
-    console.log('5 winning numbers\n',
-                UserOnCycleWith_Five_WinningNumbers 
-                    ? UserOnCycleWith_Five_WinningNumbers 
-                      + ' user on round '
-                      + RoundOnCycleWith_Five_WinningNumbers
-                    : 'no user',
-                '\n',
-                fiveWinningNumbers);
-    console.log('4 winning numbers\n',
-                UserOnCycleWith_Four_WinningNumbers 
-                    ? UserOnCycleWith_Four_WinningNumbers
-                      + ' user on round '
-                      + RoundOnCycleWith_Four_WinningNumbers 
-                    : 'no user',
-                '\n', 
-                fourWinningNumbers);
-    console.log('3 winning numbers\n',
-                UserOnCycleWith_Three_WinningNumbers 
-                    ? UserOnCycleWith_Three_WinningNumbers
-                      + ' user on round '
-                      + RoundOnCycleWith_Three_WinningNumbers 
-                    : 'no user', 
-                '\n', 
-                threeWinningNumbers);
-    console.log('2 winning numbers\n',
-                UserOnCycleWith_Two_WinningNumbers 
-                    ? UserOnCycleWith_Two_WinningNumbers
-                      + ' user on round '
-                      + RoundOnCycleWith_Two_WinningNumbers 
-                    : 'no user', 
-                '\n', 
-                twoWinningNumbers);
-    console.log('1 winning numbers\n',
+
+    console.log('d1 - ',
                 UserOnCycleWith_One_WinningNumber 
                     ? UserOnCycleWith_One_WinningNumber
                       + ' user on round '
                       + RoundOnCycleWith_One_WinningNumber 
-                    : 'no user', 
-                '\n', 
-                oneWinningNumber);
+                    : 'no user');
+    console.log('d2 - ',
+                UserOnCycleWith_Two_WinningNumbers 
+                    ? UserOnCycleWith_Two_WinningNumbers
+                      + ' user on round '
+                      + RoundOnCycleWith_Two_WinningNumbers 
+                    : 'no user');
+    console.log('d3 - ',
+                UserOnCycleWith_Three_WinningNumbers 
+                    ? UserOnCycleWith_Three_WinningNumbers
+                      + ' user on round '
+                      + RoundOnCycleWith_Three_WinningNumbers 
+                    : 'no user');
+    console.log('d4 - ',
+                UserOnCycleWith_Four_WinningNumbers 
+                    ? UserOnCycleWith_Four_WinningNumbers
+                      + ' user on round '
+                      + RoundOnCycleWith_Four_WinningNumbers 
+                    : 'no user');
+    console.log('d5 - ',
+                UserOnCycleWith_Five_WinningNumbers 
+                    ? UserOnCycleWith_Five_WinningNumbers 
+                      + ' user on round '
+                      + RoundOnCycleWith_Five_WinningNumbers
+                    : 'no user');
 }
 
 cycleOfRounds();
