@@ -88,20 +88,27 @@ function oneRound(usersNumberOnRound, totalUsersNumber, five, four, three, two, 
 }
 
 function cycleOfRounds() {
-    let usersNumberOnRound = MIN_NUMBER_OF_USERS;
+    let usersNumberOnRound = [];
+    usersNumberOnRound[0] = MIN_NUMBER_OF_USERS;
+    let totalUsersNumber = [];
+    totalUsersNumber[0] = 0;
+
     let fiveWinningNumbers = [],
         fourWinningNumbers = [],
         threeWinningNumbers = [],
         twoWinningNumbers = [],
         oneWinningNumber = [];
+    let total_Five_WinningNumbers = [],
+        total_Four_WinningNumbers = [],
+        total_Three_WinningNumbers = [],
+        total_Two_WinningNumbers = [],
+        total_One_WinningNumber = [];
 
-    let totalUsersNumber = 0, 
-        UserOnCycleWith_Five_WinningNumbers, 
+    let UserOnCycleWith_Five_WinningNumbers, 
         UserOnCycleWith_Four_WinningNumbers,
         UserOnCycleWith_Three_WinningNumbers,
         UserOnCycleWith_Two_WinningNumbers,
         UserOnCycleWith_One_WinningNumber;
-
     let RoundOnCycleWith_Five_WinningNumbers,
         RoundOnCycleWith_Four_WinningNumbers,
         RoundOnCycleWith_Three_WinningNumbers,
@@ -109,8 +116,8 @@ function cycleOfRounds() {
         RoundOnCycleWith_One_WinningNumber;
     
     for (let i = 0; i < NUMBER_OF_RAUNDS; i++) {
-        let round = oneRound(usersNumberOnRound, 
-                             totalUsersNumber,
+        let round = oneRound(usersNumberOnRound[i], 
+                             totalUsersNumber[i],
                              UserOnCycleWith_Five_WinningNumbers,
                              UserOnCycleWith_Four_WinningNumbers,
                              UserOnCycleWith_Three_WinningNumbers,
@@ -123,7 +130,14 @@ function cycleOfRounds() {
         twoWinningNumbers.push(round.twoWinningNumbers);
         oneWinningNumber.push(round.oneWinningNumber);
 
-        totalUsersNumber = round.totalUsersNumber;
+        total_Five_WinningNumbers.push(round.fiveWinningNumbers + ((i !== 0) ? total_Five_WinningNumbers[i - 1] : 0));
+        total_Four_WinningNumbers.push(round.fourWinningNumbers + ((i !== 0) ? total_Four_WinningNumbers[i - 1] : 0));
+        total_Three_WinningNumbers.push(round.threeWinningNumbers + ((i !== 0) ? total_Three_WinningNumbers[i - 1] : 0));
+        total_Two_WinningNumbers.push(round.twoWinningNumbers + ((i !== 0) ? total_Two_WinningNumbers[i - 1] : 0));
+        total_One_WinningNumber.push(round.oneWinningNumber + ((i !== 0) ? total_One_WinningNumber[i - 1] : 0));
+
+        totalUsersNumber[i] = round.totalUsersNumber;
+        totalUsersNumber[i + 1] = totalUsersNumber[i];
 
         UserOnCycleWith_Five_WinningNumbers = round.UserOnCycleWith_Five_WinningNumbers;
         if (!RoundOnCycleWith_Five_WinningNumbers && UserOnCycleWith_Five_WinningNumbers)
@@ -155,22 +169,26 @@ function cycleOfRounds() {
             RoundOnCycleWith_One_WinningNumber = i;
         }
 
-        if (usersNumberOnRound <= MAX_NUMBER_OF_USERS)
+        if (usersNumberOnRound[i] < MAX_NUMBER_OF_USERS)
         {
-            usersNumberOnRound += GROWT_IN_NUMBER_OF_USERS;
+            usersNumberOnRound[i + 1] = usersNumberOnRound[i] + GROWT_IN_NUMBER_OF_USERS;
+        }
+        else 
+        {
+            usersNumberOnRound[i + 1] = usersNumberOnRound[i];
         }
     }
 
-    console.log('number of round -  d1  d2  d3  d4  d5');
+    
     for (let i = 0; i < NUMBER_OF_RAUNDS; i++) {
         console.log('          ',
-                    i < 10
+                    i < 9
                         ? '  '
                         : ' ',
-                    i + ' - ',
+                    (i + 1) + ' -',
                     oneWinningNumber[i] < 10
-                        ? ' ' + oneWinningNumber[i] 
-                        : oneWinningNumber[i],
+                        ? '  ' + oneWinningNumber[i] 
+                        : ' ' + oneWinningNumber[i],
                     twoWinningNumbers[i] < 10
                         ? '  ' + twoWinningNumbers[i]
                         : ' ' + twoWinningNumbers[i],
@@ -182,10 +200,49 @@ function cycleOfRounds() {
                         : ' ' + fourWinningNumbers[i],
                     fiveWinningNumbers[i] < 10
                         ? '  ' + fiveWinningNumbers[i]
-                        : ' ' + fiveWinningNumbers[i]);
+                        : ' ' + fiveWinningNumbers[i],
+                    '          ',
+                    (usersNumberOnRound[i] < 100
+                        ? usersNumberOnRound[i] < 10
+                            ? '   '
+                            : '  '
+                        : ' ') + usersNumberOnRound[i],
+                    ' ' + totalUsersNumber[i] + (totalUsersNumber[i] < 1000
+                        ? totalUsersNumber[i] < 100
+                            ? totalUsersNumber[i] < 10
+                                ? '   '
+                                : '  '
+                            : ' '
+                        : '') + '        ',
+                    (total_One_WinningNumber[i] < 100 
+                        ? total_One_WinningNumber[i] < 10
+                            ? '   ' 
+                            : '  '
+                        : ' ') + total_One_WinningNumber[i],
+                    (total_Two_WinningNumbers[i] < 100 
+                        ? total_Two_WinningNumbers[i] < 10
+                            ? '   '
+                            : '  '
+                        : ' ') + total_Two_WinningNumbers[i],
+                    (total_Three_WinningNumbers[i] < 100 
+                        ? total_Three_WinningNumbers[i] < 10
+                            ? '   '
+                            : '  '
+                        : ' ') + total_Three_WinningNumbers[i],
+                    (total_Four_WinningNumbers[i] < 100
+                        ? total_Four_WinningNumbers[i] < 10
+                            ? '   '
+                            : '  '
+                        : ' ') + total_Four_WinningNumbers[i],
+                    (total_Five_WinningNumbers[i] < 100
+                        ? total_Five_WinningNumbers[i] < 10
+                            ? '   '
+                            : '  '
+                        : ' ') + total_Five_WinningNumbers[i]);
     }
 
-    console.log('total users number -', totalUsersNumber);
+
+    console.log('total users number -', totalUsersNumber[NUMBER_OF_RAUNDS - 1]);
 
     console.log('d1 - ',
                 UserOnCycleWith_One_WinningNumber 
@@ -219,4 +276,6 @@ function cycleOfRounds() {
                     : 'no user');
 }
 
+console.log('number of round -  d1  d2  d3  d4  d5    users number  total users    t1   t2   t3   t4   t5\n'
+          + '                                             on round  number');
 cycleOfRounds();
