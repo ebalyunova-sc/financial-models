@@ -79,11 +79,11 @@ function oneRound(usersNumberOnRound, totalUsersNumber, five, four, three, two, 
         twoWinningNumbers: twoWinningNumbers,
         oneWinningNumber: oneWinningNumber,
         totalUsersNumber: totalUsersNumber,
-        firstUserOnCycleWith_Five_WinningNumbers: five, 
-        firstUserOnCycleWith_Four_WinningNumbers: four,
-        firstUserOnCycleWith_Three_WinningNumbers: three,
-        firstUserOnCycleWith_Two_WinningNumbers: two,
-        firstUserOnCycleWith_One_WinningNumber: one,
+        UserOnCycleWith_Five_WinningNumbers: five, 
+        UserOnCycleWith_Four_WinningNumbers: four,
+        UserOnCycleWith_Three_WinningNumbers: three,
+        UserOnCycleWith_Two_WinningNumbers: two,
+        UserOnCycleWith_One_WinningNumber: one,
     }
 }
 
@@ -96,20 +96,26 @@ function cycleOfRounds() {
         oneWinningNumber = [];
 
     let totalUsersNumber = 0, 
-        firstUserOnCycleWith_Five_WinningNumbers, 
-        firstUserOnCycleWith_Four_WinningNumbers,
-        firstUserOnCycleWith_Three_WinningNumbers,
-        firstUserOnCycleWith_Two_WinningNumbers,
-        firstUserOnCycleWith_One_WinningNumber;
+        UserOnCycleWith_Five_WinningNumbers, 
+        UserOnCycleWith_Four_WinningNumbers,
+        UserOnCycleWith_Three_WinningNumbers,
+        UserOnCycleWith_Two_WinningNumbers,
+        UserOnCycleWith_One_WinningNumber;
+
+    let RoundOnCycleWith_Five_WinningNumbers,
+        RoundOnCycleWith_Four_WinningNumbers,
+        RoundOnCycleWith_Three_WinningNumbers,
+        RoundOnCycleWith_Two_WinningNumbers,
+        RoundOnCycleWith_One_WinningNumber;
     
     for (let i = 0; i < NUMBER_OF_RAUNDS; i++) {
         let round = oneRound(usersNumberOnRound, 
                              totalUsersNumber,
-                             firstUserOnCycleWith_Five_WinningNumbers,
-                             firstUserOnCycleWith_Four_WinningNumbers,
-                             firstUserOnCycleWith_Three_WinningNumbers,
-                             firstUserOnCycleWith_Two_WinningNumbers,
-                             firstUserOnCycleWith_One_WinningNumber);
+                             UserOnCycleWith_Five_WinningNumbers,
+                             UserOnCycleWith_Four_WinningNumbers,
+                             UserOnCycleWith_Three_WinningNumbers,
+                             UserOnCycleWith_Two_WinningNumbers,
+                             UserOnCycleWith_One_WinningNumber);
 
         fiveWinningNumbers.push(round.fiveWinningNumbers);
         fourWinningNumbers.push(round.fourWinningNumbers);
@@ -119,11 +125,35 @@ function cycleOfRounds() {
 
         totalUsersNumber = round.totalUsersNumber;
 
-        firstUserOnCycleWith_Five_WinningNumbers = round.firstUserOnCycleWith_Five_WinningNumbers; 
-        firstUserOnCycleWith_Four_WinningNumbers = round.firstUserOnCycleWith_Four_WinningNumbers;
-        firstUserOnCycleWith_Three_WinningNumbers = round.firstUserOnCycleWith_Three_WinningNumbers;
-        firstUserOnCycleWith_Two_WinningNumbers = round.firstUserOnCycleWith_Two_WinningNumbers;
-        firstUserOnCycleWith_One_WinningNumber = round.firstUserOnCycleWith_One_WinningNumber;
+        UserOnCycleWith_Five_WinningNumbers = round.UserOnCycleWith_Five_WinningNumbers;
+        if (!RoundOnCycleWith_Five_WinningNumbers && UserOnCycleWith_Five_WinningNumbers)
+        {
+            RoundOnCycleWith_Five_WinningNumbers = i;
+        }
+
+        UserOnCycleWith_Four_WinningNumbers = round.UserOnCycleWith_Four_WinningNumbers;
+        if (!RoundOnCycleWith_Four_WinningNumbers && UserOnCycleWith_Four_WinningNumbers)
+        {
+            RoundOnCycleWith_Four_WinningNumbers = i;
+        }
+
+        UserOnCycleWith_Three_WinningNumbers = round.UserOnCycleWith_Three_WinningNumbers;
+        if (!RoundOnCycleWith_Three_WinningNumbers && UserOnCycleWith_Three_WinningNumbers)
+        {
+            RoundOnCycleWith_Three_WinningNumbers = i;
+        }
+        
+        UserOnCycleWith_Two_WinningNumbers = round.UserOnCycleWith_Two_WinningNumbers;
+        if (!RoundOnCycleWith_Two_WinningNumbers && UserOnCycleWith_Two_WinningNumbers)
+        {
+            RoundOnCycleWith_Two_WinningNumbers = i;
+        }
+
+        UserOnCycleWith_One_WinningNumber = round.UserOnCycleWith_One_WinningNumber;
+        if (!RoundOnCycleWith_One_WinningNumber && UserOnCycleWith_One_WinningNumber)
+        {
+            RoundOnCycleWith_One_WinningNumber = i;
+        }
 
         if (usersNumberOnRound <= MAX_NUMBER_OF_USERS)
         {
@@ -132,33 +162,43 @@ function cycleOfRounds() {
     }
 
     console.log('total users number -', totalUsersNumber);
-    console.log('5',
-                firstUserOnCycleWith_Five_WinningNumbers 
-                    ? firstUserOnCycleWith_Five_WinningNumbers
+    console.log('5 winning numbers\n',
+                UserOnCycleWith_Five_WinningNumbers 
+                    ? UserOnCycleWith_Five_WinningNumbers 
+                      + ' user on round '
+                      + RoundOnCycleWith_Five_WinningNumbers
                     : 'no user',
                 '\n',
                 fiveWinningNumbers);
-    console.log('4',
-                firstUserOnCycleWith_Four_WinningNumbers 
-                    ? firstUserOnCycleWith_Four_WinningNumbers 
+    console.log('4 winning numbers\n',
+                UserOnCycleWith_Four_WinningNumbers 
+                    ? UserOnCycleWith_Four_WinningNumbers
+                      + ' user on round '
+                      + RoundOnCycleWith_Four_WinningNumbers 
                     : 'no user',
                 '\n', 
                 fourWinningNumbers);
-    console.log('3',
-                firstUserOnCycleWith_Three_WinningNumbers 
-                    ? firstUserOnCycleWith_Three_WinningNumbers 
+    console.log('3 winning numbers\n',
+                UserOnCycleWith_Three_WinningNumbers 
+                    ? UserOnCycleWith_Three_WinningNumbers
+                      + ' user on round '
+                      + RoundOnCycleWith_Three_WinningNumbers 
                     : 'no user', 
                 '\n', 
                 threeWinningNumbers);
-    console.log('2',
-                firstUserOnCycleWith_Two_WinningNumbers 
-                    ? firstUserOnCycleWith_Two_WinningNumbers 
+    console.log('2 winning numbers\n',
+                UserOnCycleWith_Two_WinningNumbers 
+                    ? UserOnCycleWith_Two_WinningNumbers
+                      + ' user on round '
+                      + RoundOnCycleWith_Two_WinningNumbers 
                     : 'no user', 
                 '\n', 
                 twoWinningNumbers);
-    console.log('1',
-                firstUserOnCycleWith_One_WinningNumber 
-                    ? firstUserOnCycleWith_One_WinningNumber 
+    console.log('1 winning numbers\n',
+                UserOnCycleWith_One_WinningNumber 
+                    ? UserOnCycleWith_One_WinningNumber
+                      + ' user on round '
+                      + RoundOnCycleWith_One_WinningNumber 
                     : 'no user', 
                 '\n', 
                 oneWinningNumber);
